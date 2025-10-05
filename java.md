@@ -27,6 +27,13 @@ Prefer small, safe refactors alongside changes.
 ## Branch strategy
 
 - We follow a Gitflow-style workflow.
+- Typically `main` will mirror Production.
+- `develop` is used for completed feature work.
+- we cut `release` branches from `develop` for production releases.
+- we use `bugfix` and/or `feature` when patching `release` branches. These are merged back into `develop`.
+- we create `hotfix` from `main`, and merge back into `develop` and `main`.
+
+## Branch Naming
 
 Include the Jira ticket in branch names:
 
@@ -36,7 +43,7 @@ feature/SS-1234-update-data-flow-diagrams
 
 Feature branches should be short-lived and removed after merge.
 
-For large projects spanning sprints, create a long-running feature branch and protect it. Then branch off it for sub-features.
+For large projects spanning sprints, create a long-running feature branch and protect it. The team can then can branch project features off it.
 
 Examples:
 
@@ -44,7 +51,7 @@ Examples:
 feature/SS-1234-update-data-flow-diagrams
 hotfix/SS-4321-prod-nullpointer
 bugfix/SS-5678-fix-payment-service-constructor-injection
-release/2025.10.0
+release/25.10.0
 ```
 
 ## Commit messages
@@ -63,15 +70,16 @@ SS-9012: fix NPE in user lookup on null address
 ### Merge strategy
 
 - Default: merge commits.
+- Very noise feature branch may be squashed.
 
-## PR reviews
+## Pull Request reviews
 
-- PRs are for review, not just approval. Review for both requirements and this guide.
-- Aim for <300 LOC of meaningful logic. If larger, keep commits focused and the PR description clear.
+- Pull Requests are for review, not just approval. Review for both requirements and this guide.
+- Aim for <300 LOC of meaningful logic. If larger, keep commits focused and the Pull Request description clear.
 - Review the code, not the person. Optimize for maintainability and clarity.
 - See https://conventionalcomments.org/ for guidance.
 
-### Java PR checklist
+### Java Pull Request checklist
 
 - Data flow updated if relevant.
 - Correctness against acceptance criteria.
@@ -97,7 +105,7 @@ SS-9012: fix NPE in user lookup on null address
 - Use our digital-utils package for common code.
 - Clean as you go. Leave it better than you found it.
 - Fix IDE inspections (yellow squiggles). Suppress only with justification.
-- Update dependencies in small PRs. Avoid mixing major upgrades with feature work.
+- Update dependencies in small Pull Requests. Avoid mixing major upgrades with feature work.
 
 ## Avoiding bad habits
 
@@ -112,7 +120,7 @@ SS-9012: fix NPE in user lookup on null address
 
 # CI/CD
 
-- Azure Pipelines run:.
+- Azure Pipelines run:
   - GitGuardian for secret leaks
   - Snyk for vulnerabilities
   - JaCoCo for code coverage
@@ -120,7 +128,7 @@ SS-9012: fix NPE in user lookup on null address
 
 # The code itself
 
-Create an early PR in a draft state to get feedback.
+Create an early Pull Request in a draft state to get feedback.
 
 ## Naming
 
@@ -239,11 +247,10 @@ var discountRate = calculator.computeDiscountRate(customer);
 - Use given-when-then.
 - Most tests run under Quarkus; write them like unit tests with Quarkus running.
 
-## formatting - don't leave a mess
+## Formatting - don't leave a mess
 
 - Do not commit unused imports.
 - Don't commit large amounts of "commented out" code.
-- RADAR Item - try to automate this via CI/CD, a gradle plugin https://github.com/google/google-java-format or project level IDE settings and take the onus away from the developer.
 
 ## Helpful tips
 
@@ -254,5 +261,5 @@ var discountRate = calculator.computeDiscountRate(customer);
 
 - https://baeldung.com contains a wealth of knowledge for Java developers, covering the details of many of our technologies and techniques.
 - [SOLID principles](https://www.baeldung.com/solid-principles)
-- [Refactoring - Martin Folwer](https://martinfowler.com/books/refactoring.html)
+- [Refactoring - Martin Fowler](https://martinfowler.com/books/refactoring.html)
 - [Agile Threat Modelling](https://martinfowler.com/articles/agile-threat-modelling.html)
