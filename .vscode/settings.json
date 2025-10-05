@@ -7,6 +7,7 @@
     "Nonnull",
     "nullpointer",
     "Organise",
-    "Quarkus"
+    "Quarkus",
+    "rethrowing"
   ]
 }
